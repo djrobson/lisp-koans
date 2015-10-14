@@ -90,9 +90,9 @@
     (assert-equal b 200)
     (assert-equal c "Jellyfish"))
   (let* ((a 0))
-    (assert-equal a 121)
-    (assert-equal b 200)
-    (assert-equal c (+ a (/ b a)))))
+    (assert-equal a 0)
+    (assert-equal b 23)
+    (assert-equal c 456)))
 
 
 (define-test test-cond
@@ -102,13 +102,18 @@
         (cond ((> a 0) :positive)
               ((< a 0) :negative)
               (t :zero)))
-  (assert-equal ____ c))
+  (assert-equal :positive c))
 
 
 (defun cartoon-dads (input)
   " you should be able to complete this cond statement"
   (cond ((equal input :this-one-doesnt-happen) :fancy-cat)
-        (t :unknown)))
+    ((equal input :bart) :homer)
+    ((equal input :stewie) :peter)
+    ((equal input :stan) :randy)
+    (t :unknown)
+  )
+)
 
 (define-test test-your-own-cond-statement
     "fix this by completing the 'cartoon-dads' function above"
