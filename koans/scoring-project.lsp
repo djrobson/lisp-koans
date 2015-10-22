@@ -48,10 +48,20 @@
 ; More scoring examples are given in the tests below:
 ;
 ; Your goal is to write the score method.
-
 (defun score (dice)
-  ; You need to write this method
-)
+  (reduce #'+ (mapcar #'(lambda (n)
+                         (let ((coun (count n dice)))
+                           (case n
+                             (1 (cond ((= coun 3) 1000)
+                                      ((< coun 3) (* 100 coun))
+                                      ((> coun 3) (+ 1000 (* 100 (- coun 3))))))
+                             (5 (cond ((= coun 3) 500)
+                                      ((< coun 3) (* coun 50))
+                                      ((> coun 3) (+ 500 (* (- coun 3) 50)))))
+                             (otherwise (if (>= coun 3)
+                                            (* n 100)
+                                          0)))))
+                      (remove-duplicates dice))))
 
 (define-test test-score-of-an-empty-list-is-zero
     (assert-equal 0 (score nil)))
